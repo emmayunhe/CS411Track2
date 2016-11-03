@@ -83,6 +83,10 @@ public class CreateStudentDB {
 				stmt.executeUpdate(s + enrollvals[i]);
 			System.out.println("ENROLL records inserted.");
 
+			s = "alter enroll rename enrolllllll";
+			stmt.executeUpdate(s);
+			System.out.println("Rename completed.");
+
 		}
 		catch(SQLException e) {
 			e.printStackTrace();

@@ -54,6 +54,8 @@ public class Planner {
          return uplanner.executeCreateView((CreateViewData)obj, tx);
       else if (obj instanceof CreateIndexData)
          return uplanner.executeCreateIndex((CreateIndexData)obj, tx);
+      else if (obj instanceof Rename)
+         return uplanner.executeRename((Rename)obj, tx);
       else
          return 0;
    }

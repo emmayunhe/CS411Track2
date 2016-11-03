@@ -1,4 +1,5 @@
 package simpledb.parse;
+//import simpledb.remote.SimpleDriver;
 
 import java.util.*;
 import java.io.*;
@@ -117,8 +118,10 @@ public class Lexer {
     * @param w the keyword string
     */
    public void eatKeyword(String w) {
-      if (!matchKeyword(w))
+      if (!matchKeyword(w)){
+        System.out.println("Error in eatKeyword!");
          throw new BadSyntaxException();
+       }
       nextToken();
    }
    
@@ -130,8 +133,10 @@ public class Lexer {
     * @return the string value of the current token
     */
    public String eatId() {
-      if (!matchId())
+      if (!matchId()){
+        System.out.println("Error in eatId!");
          throw new BadSyntaxException();
+       }
       String s = tok.sval;
       nextToken();
       return s;
@@ -149,6 +154,6 @@ public class Lexer {
    private void initKeywords() {
       keywords = Arrays.asList("select", "from", "where", "and",
                                "insert", "into", "values", "delete", "update", "set", 
-                               "create", "table", "int", "varchar", "view", "as", "index", "on");
+                               "create", "table", "int", "varchar", "view", "as", "index", "on", "alter", "rename");
    }
 }

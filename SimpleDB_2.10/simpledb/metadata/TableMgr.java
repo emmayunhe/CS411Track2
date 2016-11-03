@@ -77,6 +77,18 @@ public class TableMgr {
       fcatfile.close();
    }
    
+   public void renameTable(String tblname, String tblenameNew, Transaction tx){
+      RecordFile tcatfile = new RecordFile(tcatInfo, tx);
+      int reclen = -1;
+      while (tcatfile.next())
+         if(tcatfile.getString("tblname").equals(tblname)) {
+            tcatfile.setString("tblname", tblenameNew);
+         break;
+      }
+      System.out.println(tcatfile.getString("tblname"));
+      tcatfile.close();
+   }
+
    /**
     * Retrieves the metadata for the specified table
     * out of the catalog.
@@ -109,4 +121,6 @@ public class TableMgr {
       fcatfile.close();
       return new TableInfo(tblname, sch, offsets, reclen);
    }
+
+
 }

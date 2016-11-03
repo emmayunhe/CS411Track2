@@ -52,7 +52,7 @@ public class Parser {
    }
    
 // Methods for parsing queries
-   
+
    public QueryData query() {
       lex.eatKeyword("select");
       Collection<String> fields = selectList();
@@ -95,6 +95,8 @@ public class Parser {
          return delete();
       else if (lex.matchKeyword("update"))
          return modify();
+      else if (lex.matchKeyword("alter"))
+         return rename();
       else
          return create();
    }
@@ -240,6 +242,16 @@ public class Parser {
       String fldname = field();
       lex.eatDelim(')');
       return new CreateIndexData(idxname, tblname, fldname);
+   }
+
+// Method for renaming table
+
+   public Rename rename(){
+      lex.eatKeyword("alter");
+      String tblname = lex.eatId();
+      lex.eatKeyword("rename");
+      String tblnameNew = lex.eatId();
+      return new Rename(tblname, tblnameNew);
    }
 }
 

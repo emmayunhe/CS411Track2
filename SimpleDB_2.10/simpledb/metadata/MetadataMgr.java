@@ -44,4 +44,11 @@ public class MetadataMgr {
    public StatInfo getStatInfo(String tblname, TableInfo ti, Transaction tx) {
       return statmgr.getStatInfo(tblname, ti, tx);
    }
+
+   public TableMgr tblMgr(){
+      return tblmgr;
+   }
+   public void renameTable(String tblname, String tblenameNew, Transaction tx){
+      tblmgr.renameTable(tblname, tblenameNew, tx);
+   }
 }

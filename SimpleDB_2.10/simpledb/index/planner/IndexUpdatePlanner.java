@@ -117,4 +117,9 @@ public class IndexUpdatePlanner implements UpdatePlanner {
       SimpleDB.mdMgr().createIndex(data.indexName(), data.tableName(), data.fieldName(), tx);
       return 0;
    }
+
+   public int executeRename(Rename data, Transaction tx){
+      SimpleDB.mdMgr().renameTable(data.tableName(), data.tblnameNew(), tx);
+      return 0;
+   }
 }
