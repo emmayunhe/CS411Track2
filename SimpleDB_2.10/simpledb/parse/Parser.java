@@ -69,6 +69,11 @@ public class Parser {
       }
       lex.eatKeyword("from");
       Collection<String> tables = tableList();
+      if(lex.matchKeyword("cross")){
+         lex.eatKeyword("cross");
+         lex.eatKeyword("join");
+         tables.add(lex.eatId());
+      }
       Predicate pred = new Predicate();
       if (lex.matchKeyword("where")) {
          lex.eatKeyword("where");
