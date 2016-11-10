@@ -12,4 +12,3 @@ import java.rmi.*;
 public interface RemoteDriver extends Remote {
    public RemoteConnection connect() throws RemoteException;
 }
-

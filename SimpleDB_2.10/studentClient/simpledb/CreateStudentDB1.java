@@ -27,10 +27,10 @@ public class CreateStudentDB1 {
 				stmt.executeUpdate(s + studvals[i]);
 			System.out.println("STUDENT records inserted.");
 
-			s = "create table STUDENT1(SId int, SName varchar(10), MajorId int, GradYear int)";
+			s = "create table STUDENT1(SId1 int, SName1 varchar(10), MajorId1 int, GradYear1 int)";
 			stmt.executeUpdate(s);
 			System.out.println("Table STUDENT1 created.");
-			s = "insert into STUDENT1(SId, SName, MajorId, GradYear) values ";
+			s = "insert into STUDENT1(SId1, SName1, MajorId1, GradYear1) values ";
 			String[] stud1vals = {"(1, 'joe', 10, 2004)"};
 			for (int i=0; i<stud1vals.length; i++)
 				stmt.executeUpdate(s + stud1vals[i]);

@@ -82,7 +82,7 @@ public class TableMgr {
       while (tcatfile.next())
          if(tcatfile.getString("tblname").equals(tblname)) {
             tcatfile.setString("tblname", tblenameNew);
-        break;
+            break;
       }
       RecordFile fcatfile = new RecordFile(fcatInfo, tx);
       while(fcatfile.next()){
