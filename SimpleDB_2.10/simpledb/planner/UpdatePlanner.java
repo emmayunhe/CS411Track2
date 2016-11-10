@@ -65,4 +65,6 @@ public interface UpdatePlanner {
    public int executeCreateIndex(CreateIndexData data, Transaction tx);
 
    public int executeRename(Rename data, Transaction tx);
+
+   //public int executeRenameAttr(AttrRename data, Transaction tx); 
 }

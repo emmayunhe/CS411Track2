@@ -24,6 +24,20 @@ public class StudentMajor {
 				System.out.println(sname + "\t" + dname);
 			}
 			rs.close();
+
+			// test rename table
+			Statement stmt2 = conn.createStatement();
+			String qry2 = "select StudentId, Grade "
+						+ "from enrolllllll ";
+			ResultSet rs2 = stmt2.executeQuery(qry2);
+
+			System.out.println("StudentId\tGrade");
+			while(rs2.next()){
+				String sid = rs2.getString("StudentId");
+				String grade = rs2.getString("Grade");
+				System.out.println(sid + "\t" + grade);
+			}
+			rs2.close();
 		}
 		catch(SQLException e) {
 			e.printStackTrace();

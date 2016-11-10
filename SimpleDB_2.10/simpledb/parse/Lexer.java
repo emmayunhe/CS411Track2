@@ -68,6 +68,16 @@ public class Lexer {
    public boolean matchId() {
       return  tok.ttype==StreamTokenizer.TT_WORD && !keywords.contains(tok.sval);
    }
+
+   public boolean matchStar() {
+      boolean ret = false;
+      // String star = String.valueOf('*');
+      // System.out.println(star);
+      // System.out.println(star.getClass().getName());
+      ret = (char)tok.ttype=='*';
+      System.out.println(ret);
+      return ret;
+   }
    
 //Methods to "eat" the current token
    
@@ -118,13 +128,13 @@ public class Lexer {
     * @param w the keyword string
     */
    public void eatKeyword(String w) {
-      if (!matchKeyword(w)){
+      if (!matchKeyword(w) && !matchStar()){
         System.out.println("Error in eatKeyword!");
          throw new BadSyntaxException();
        }
       nextToken();
    }
-   
+
    /**
     * Throws an exception if the current token is not 
     * an identifier. 
@@ -152,7 +162,7 @@ public class Lexer {
    }
    
    private void initKeywords() {
-      keywords = Arrays.asList("select", "from", "where", "and",
+      keywords = Arrays.asList("select", "from", "where", "and", "*", "to",
                                "insert", "into", "values", "delete", "update", "set", 
                                "create", "table", "int", "varchar", "view", "as", "index", "on", "alter", "rename");
    }

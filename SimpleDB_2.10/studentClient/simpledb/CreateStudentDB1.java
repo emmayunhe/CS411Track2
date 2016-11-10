@@ -1,7 +1,7 @@
 import java.sql.*;
 import simpledb.remote.SimpleDriver;
 
-public class CreateStudentDB {
+public class CreateStudentDB1 {
     public static void main(String[] args) {
 		Connection conn = null;
 		try {
@@ -43,10 +43,6 @@ public class CreateStudentDB {
 			stmt.executeUpdate(s);
 			System.out.println("Table COURSE created.");
 
-			s = "create table COURSE2(CId int, Title varchar(20), DeptId int)";
-			stmt.executeUpdate(s);
-			System.out.println("Table COURSE2 created.");
-
 			s = "insert into COURSE(CId, Title, DeptId) values ";
 			String[] coursevals = {"(12, 'db systems', 10)",
 								   "(22, 'compilers', 10)",
@@ -57,20 +53,6 @@ public class CreateStudentDB {
 			for (int i=0; i<coursevals.length; i++)
 				stmt.executeUpdate(s + coursevals[i]);
 			System.out.println("COURSE records inserted.");
-
-			s = "insert into COURSE2(CId, Title, DeptId) values ";
-			String[] coursevals2 = {"(11, 'class1', 10)",
-								   "(21, 'class2', 10)",
-								   "(31, 'class3', 20)",
-								   "(42, 'algebra', 20)",
-								   "(51, 'class4', 30)",
-								   "(61, 'class5', 30)"};
-			for (int i=0; i<coursevals.length; i++)
-				stmt.executeUpdate(s + coursevals[i]);
-			System.out.println("COURSE2 records2 inserted.");
-
-			// test union
-			//s = "select CId"
 
 			s = "create table SECTION(SectId int, CourseId int, Prof varchar(8), YearOffered int)";
 			stmt.executeUpdate(s);
@@ -101,12 +83,7 @@ public class CreateStudentDB {
 				stmt.executeUpdate(s + enrollvals[i]);
 			System.out.println("ENROLL records inserted.");
 
-			
-			s = "alter table enroll rename enrollrename";
-			stmt.executeUpdate(s);
-			System.out.println("Rename completed.");
 		}
-
 		catch(SQLException e) {
 			e.printStackTrace();
 		}

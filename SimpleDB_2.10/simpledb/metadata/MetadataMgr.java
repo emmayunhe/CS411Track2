@@ -48,7 +48,12 @@ public class MetadataMgr {
    public TableMgr tblMgr(){
       return tblmgr;
    }
+
    public void renameTable(String tblname, String tblenameNew, Transaction tx){
       tblmgr.renameTable(tblname, tblenameNew, tx);
+   }
+
+   public void renameAttributes(String tblname, String attrPrev, String attrNew, Transaction tx){
+      tblmgr.renameAttributes(tblname, attrPrev, attrNew, tx);
    }
 }

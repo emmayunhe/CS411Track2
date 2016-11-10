@@ -17,8 +17,11 @@ public class ProjectPlan implements Plan {
     * @param p the subquery
     * @param fieldlist the list of fields
     */
-   public ProjectPlan(Plan p, Collection<String> fieldlist) {
+   public ProjectPlan(Plan p, Collection<String> fieldlist, boolean star) {
       this.p = p;
+      if(star){
+        schema.addAll(p.schema());
+      }
       for (String fldname : fieldlist)
          schema.add(fldname, p.schema());
    }

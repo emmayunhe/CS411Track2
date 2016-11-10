@@ -65,8 +65,17 @@ public class BasicUpdatePlanner implements UpdatePlanner {
       SimpleDB.mdMgr().createIndex(data.indexName(), data.tableName(), data.fieldName(), tx);
       return 0;  
    }
-   public int executeRename(Rename data, Transaction tx){
-      SimpleDB.mdMgr().renameTable(data.tableName(), data.tblnameNew(), tx);
+      public int executeRename(Rename data, Transaction tx){
+      if(data.tableOrColn()){
+         SimpleDB.mdMgr().renameTable(data.tblname(), data.newString(), tx);      
+      }
+      else{
+         SimpleDB.mdMgr().renameAttributes(data.tblname(), data.prevString(), data.newString(), tx);
+      }
       return 0;
    }
+   // public int executeRenameAttr(AttrRename data, Transaction tx){
+   //    SimpleDB.mdMgr().renameAttributes(data.tblname(), data.attrPrev(), data.attrNew(), tx);
+   //    return 0;
+   // }
 }

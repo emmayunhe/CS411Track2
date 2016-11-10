@@ -11,14 +11,16 @@ public class QueryData {
    private Collection<String> fields;
    private Collection<String> tables;
    private Predicate pred;
+   private boolean star = false;
    
    /**
     * Saves the field and table list and predicate.
     */
-   public QueryData(Collection<String> fields, Collection<String> tables, Predicate pred) {
+   public QueryData(Collection<String> fields, Collection<String> tables, Predicate pred, boolean star) {
       this.fields = fields;
       this.tables = tables;
       this.pred = pred;
+      this.star = star;
    }
    
    /**
@@ -44,6 +46,10 @@ public class QueryData {
     */
    public Predicate pred() {
       return pred;
+   }
+
+   public boolean star(){
+      return star;
    }
    
    public String toString() {

@@ -119,7 +119,17 @@ public class IndexUpdatePlanner implements UpdatePlanner {
    }
 
    public int executeRename(Rename data, Transaction tx){
-      SimpleDB.mdMgr().renameTable(data.tableName(), data.tblnameNew(), tx);
+      if(data.tableOrColn()){
+         SimpleDB.mdMgr().renameTable(data.tblname(), data.newString(), tx);      
+      }
+      else{
+         SimpleDB.mdMgr().renameAttributes(data.tblname(), data.prevString(), data.newString(), tx);
+      }
       return 0;
    }
+
+   // public int executeRenameAttr(AttrRename data, Transaction tx){
+   //    SimpleDB.mdMgr().renameAttributes(data.tblname(), data.attrPrev(), data.attrNew(), tx);
+   //    return 0;
+   // }
 }

@@ -54,8 +54,19 @@ public class Parser {
 // Methods for parsing queries
 
    public QueryData query() {
+      // indicate whether the input is a star
+      boolean star = false;
+      Collection<String> fields = new ArrayList<String>();
       lex.eatKeyword("select");
-      Collection<String> fields = selectList();
+      if(lex.matchStar()){
+         star = true;
+         System.out.println("* in query is: ");
+         System.out.println("*".getClass().getName());
+         lex.eatKeyword("*");
+      }
+      else{
+         fields = selectList();
+      }
       lex.eatKeyword("from");
       Collection<String> tables = tableList();
       Predicate pred = new Predicate();
@@ -63,7 +74,7 @@ public class Parser {
          lex.eatKeyword("where");
          pred = predicate();
       }
-      return new QueryData(fields, tables, pred);
+      return new QueryData(fields, tables, pred, star);
    }
    
    private Collection<String> selectList() {
@@ -248,10 +259,22 @@ public class Parser {
 
    public Rename rename(){
       lex.eatKeyword("alter");
+      lex.eatKeyword("table");
       String tblname = lex.eatId();
-      lex.eatKeyword("rename");
-      String tblnameNew = lex.eatId();
-      return new Rename(tblname, tblnameNew);
+      if(lex.matchKeyword("rename")){
+         lex.eatKeyword("rename");
+         lex.eatKeyword("to");
+         String tblnameNew = lex.eatId();
+         return new Rename(true, tblname, tblname, tblnameNew);
+      }
+      else if(lex.matchKeyword("change")){
+         lex.eatKeyword("change");
+         String attrPrev = lex.eatId();
+         lex.eatKeyword("to");
+         String attrNew = lex.eatId();
+         return new Rename(false, tblname, attrPrev, attrNew);
+      }
+      return null;
    }
 }
 

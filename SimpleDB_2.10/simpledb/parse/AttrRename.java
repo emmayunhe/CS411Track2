@@ -7,25 +7,20 @@ import java.util.*;
  * Data for the SQL <i>insert</i> statement.
  * @author Edward Sciore
  */
-public class Rename {
-   private boolean tableOrColn; // true = table; false = coln;
+public class AttrRename {
    private String tblname;
-   private String prevString;
-   private String newString;
+   private String attrPrev;
+   private String attrNew;
    
    /**
     * Saves the table name and the field and value lists.
     */
-   public Rename(boolean tableOrColn, String tblname, String prevString, String newString) {
-      this.tableOrColn = tableOrColn;
+   public AttrRename(String tblname, String attrPrev, String attrNew) {
       this.tblname = tblname;
-      this.prevString = prevString;
-      this.newString = newString;
+      this.attrPrev = attrPrev;
+      this.attrNew = attrNew;
    }
    
-   public boolean tableOrColn(){
-      return tableOrColn;
-   }
    /**
     * Returns the name of the affected table.
     * @return the name of the affected table
@@ -38,12 +33,12 @@ public class Rename {
     * Returns the new name of the affected table.
     * @return the new name of the affected table.
     */
-   public String prevString() {
-      return prevString;
+   public String attrPrev() {
+      return attrPrev;
    }
 
-   public String newString(){
-      return newString;
+   public String attrNew() {
+      return attrNew; 
    }
 }
 

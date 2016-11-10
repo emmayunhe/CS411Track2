@@ -79,14 +79,32 @@ public class TableMgr {
    
    public void renameTable(String tblname, String tblenameNew, Transaction tx){
       RecordFile tcatfile = new RecordFile(tcatInfo, tx);
-      int reclen = -1;
       while (tcatfile.next())
          if(tcatfile.getString("tblname").equals(tblname)) {
             tcatfile.setString("tblname", tblenameNew);
-         break;
+        break;
       }
-      System.out.println(tcatfile.getString("tblname"));
+      RecordFile fcatfile = new RecordFile(fcatInfo, tx);
+      while(fcatfile.next()){
+        if(fcatfile.getString ("tblname").equals(tblname)){
+          fcatfile.setString  ("tblname", tblenameNew);
+        }
+      }
+      // for testing purpose
+      //System.out.println(tcatfile.getString("tblname"));
       tcatfile.close();
+      fcatfile.close();
+   }
+
+   public void renameAttributes(String tblname, String attrPrev, String attrNew, Transaction tx){
+      RecordFile fcatfile = new RecordFile(fcatInfo, tx);
+      while(fcatfile.next()){
+          if(fcatfile.getString("tblname").equals(tblname) && fcatfile.getString("fldname").equals(attrPrev)){
+            fcatfile.setString("fldname", attrNew);
+            break;
+          }
+      }
+      fcatfile.close();
    }
 
    /**
@@ -121,6 +139,5 @@ public class TableMgr {
       fcatfile.close();
       return new TableInfo(tblname, sch, offsets, reclen);
    }
-
 
 }

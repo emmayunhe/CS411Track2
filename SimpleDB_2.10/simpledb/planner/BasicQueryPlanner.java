@@ -37,7 +37,7 @@ public class BasicQueryPlanner implements QueryPlanner {
       p = new SelectPlan(p, data.pred());
       
       //Step 4: Project on the field names
-      p = new ProjectPlan(p, data.fields());
+      p = new ProjectPlan(p, data.fields(), data.star());
       return p;
    }
 }
