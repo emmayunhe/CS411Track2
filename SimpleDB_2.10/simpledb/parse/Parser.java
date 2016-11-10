@@ -37,7 +37,10 @@ public class Parser {
    
    public Term term() {
       Expression lhs = expression();
-      lex.eatDelim('=');
+      if(lex.matchDelim('='))
+         lex.eatDelim('=');
+      else if(lex.matchDelim(','))
+         lex.eatDelim(',');
       Expression rhs = expression();
       return new Term(lhs, rhs);
    }
@@ -69,12 +72,26 @@ public class Parser {
       }
       lex.eatKeyword("from");
       Collection<String> tables = tableList();
+      Predicate pred = new Predicate();
       if(lex.matchKeyword("cross")){
          lex.eatKeyword("cross");
          lex.eatKeyword("join");
          tables.add(lex.eatId());
       }
-      Predicate pred = new Predicate();
+      else if(lex.matchKeyword("equi")){
+         lex.eatKeyword("equi");
+         lex.eatKeyword("join");
+         tables.add(lex.eatId());
+         lex.eatKeyword("on");
+         // String lhs = lex.eatId();
+         // lex.matchDelim(',');
+         // String rhs = lex.eatId();
+         // Expression lhsExpression = lhs;
+         // Expression rhsExpression = rhs;
+         // Term t = Term(lhsExpression, rhsExpression);
+         // predicate(t);
+         pred = predicate();
+      }
       if (lex.matchKeyword("where")) {
          lex.eatKeyword("where");
          pred = predicate();
